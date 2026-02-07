@@ -1,0 +1,103 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------< org.example:automation-assignment >------------------
+[INFO] Building automation-assignment 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ automation-assignment ---
+[INFO] Deleting C:\Users\natal\IdeaProjects\automation-assignment\target
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ automation-assignment ---
+[INFO] skip non existing resourceDirectory C:\Users\natal\IdeaProjects\automation-assignment\src\main\resources
+[INFO]
+[INFO] --- compiler:3.13.0:compile (default-compile) @ automation-assignment ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug target 17] to target\classes
+[WARNING] location of system modules is not set in conjunction with -source 17
+  not setting the location of system modules may lead to class files that cannot run on JDK 17
+    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ automation-assignment ---
+[INFO] Copying 3 resources from src\test\resources to target\test-classes
+[INFO]
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ automation-assignment ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug target 17] to target\test-classes
+[WARNING] location of system modules is not set in conjunction with -source 17
+  not setting the location of system modules may lead to class files that cannot run on JDK 17
+    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO]
+[INFO] --- surefire:3.0.0-M8:test (default-test) @ automation-assignment ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider
+[INFO] Running pl.automation.steps.TestRunner
+
+@Regression @Smoke
+Scenario Outline: Retrieve a joke by specific id # src/test/resources/features/joke_by_id.feature:12
+  Given the joke api is up and running           # pl.automation.steps.JokeSteps.apiCheck()
+  When I request a joke with id 1                # pl.automation.steps.JokeSteps.getJokeById(int)
+  Then the response status code should be 200    # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And the joke id should be 1                    # pl.automation.steps.JokeSteps.verifyId(int)
+
+@Regression @Smoke
+Scenario Outline: Retrieve a joke by specific id # src/test/resources/features/joke_by_id.feature:13
+  Given the joke api is up and running           # pl.automation.steps.JokeSteps.apiCheck()
+  When I request a joke with id 150              # pl.automation.steps.JokeSteps.getJokeById(int)
+  Then the response status code should be 200    # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And the joke id should be 150                  # pl.automation.steps.JokeSteps.verifyId(int)
+
+@Regression @Smoke
+Scenario Outline: Retrieve a joke by specific id # src/test/resources/features/joke_by_id.feature:14
+  Given the joke api is up and running           # pl.automation.steps.JokeSteps.apiCheck()
+  When I request a joke with id 300              # pl.automation.steps.JokeSteps.getJokeById(int)
+  Then the response status code should be 200    # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And the joke id should be 300                  # pl.automation.steps.JokeSteps.verifyId(int)
+
+@Regression
+Scenario Outline: Get a chosen amount of jokes and verify it # src/test/resources/features/number_of_jokes.feature:12
+  Given the joke api is up and running                       # pl.automation.steps.JokeSteps.apiCheck()
+  When I request 10 jokes                                    # pl.automation.steps.JokeSteps.getNumberOfJokes(int)
+  Then the response status code should be 200                # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And there should be exactly 10 fields                      # pl.automation.steps.JokeSteps.verifyNumberOfFields(int)
+
+@Regression
+Scenario Outline: Get a chosen amount of jokes and verify it # src/test/resources/features/number_of_jokes.feature:13
+  Given the joke api is up and running                       # pl.automation.steps.JokeSteps.apiCheck()
+  When I request 50 jokes                                    # pl.automation.steps.JokeSteps.getNumberOfJokes(int)
+  Then the response status code should be 200                # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And there should be exactly 50 fields                      # pl.automation.steps.JokeSteps.verifyNumberOfFields(int)
+
+@Smoke
+Scenario: Get a random joke and verify response structure # src/test/resources/features/random_joke.feature:6
+  Given the joke api is up and running                    # pl.automation.steps.JokeSteps.apiCheck()
+  When I request a random joke                            # pl.automation.steps.JokeSteps.getRandomJoke()
+  Then the response status code should be 200             # pl.automation.steps.JokeSteps.verifyStatus(int)
+  And the joke should have "setup" and "punchline" fields # pl.automation.steps.JokeSteps.verifyFields(java.lang.String,java.lang.String)
+┌───────────────────────────────────────────────────────────────────────────────────┐
+│ Share your Cucumber Report with your team at https://reports.cucumber.io          │
+│ Activate publishing with one of the following:                                    │
+│                                                                                   │
+│ src/test/resources/cucumber.properties:          cucumber.publish.enabled=true    │
+│ src/test/resources/junit-platform.properties:    cucumber.publish.enabled=true    │
+│ Environment variable:                            CUCUMBER_PUBLISH_ENABLED=true    │
+│ JUnit:                                           @CucumberOptions(publish = true) │
+│                                                                                   │
+│ More information at https://cucumber.io/docs/cucumber/environment-variables/      │
+│                                                                                   │
+│ Disable this message with one of the following:                                   │
+│                                                                                   │
+│ src/test/resources/cucumber.properties:          cucumber.publish.quiet=true      │
+│ src/test/resources/junit-platform.properties:    cucumber.publish.quiet=true      │
+└───────────────────────────────────────────────────────────────────────────────────┘
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.217 s - in pl.automation.steps.TestRunner
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.628 s
+[INFO] Finished at: 2026-02-07T22:38:37+01:00
+[INFO] ------------------------------------------------------------------------
